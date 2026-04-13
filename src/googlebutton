@@ -1,0 +1,7 @@
+<button
+  type="button"
+  onClick={handleGoogleLogin}
+  className="w-full h-11 rounded-xl border mt-2 flex items-center justify-center gap-2"
+>
+  <span>🔵</span> Continue with Google
+</button>
