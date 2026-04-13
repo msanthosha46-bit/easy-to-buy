@@ -14,10 +14,10 @@ import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import Orders from "./pages/Orders";
 import ProductDetail from "./pages/ProductDetail";
-import Wishlist from "./pages/Wishlist"; // ✅ FIXED
+import Wishlist from "./pages/Wishlist";
 import OrderTracking from "./pages/OrderTracking";
 import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound"; // ✅ FIXED
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +28,6 @@ const App = () => (
         <WishlistProvider>
           <Toaster />
           <Sonner />
-
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -41,14 +40,10 @@ const App = () => (
               <Route path="/orders/:id" element={<OrderTracking />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/profile" element={<Profile />} />
-
-              {/* ✅ FIXED */}
               <Route path="/wishlist" element={<Wishlist />} />
-
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-
         </WishlistProvider>
       </StoreProvider>
     </TooltipProvider>
