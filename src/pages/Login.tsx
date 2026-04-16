@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, KeyboardEvent, ClipboardEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff, Zap, Mail, Lock, AlertCircle, ArrowLeft, CheckCircle2, RefreshCw } from 'lucide-react';
 import { useStore } from '@/stores/storeContext';
 import { supabase } from '@/lib/supabase';
@@ -105,6 +105,8 @@ const CountdownTimer = ({ seconds, onExpire }: { seconds: number; onExpire: () =
 
 const Login = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get('returnTo') || '/';
   const { login } = useStore();
 
   // Password login state
@@ -150,7 +152,7 @@ const Login = () => {
         name: data.user.user_metadata?.full_name || data.user.user_metadata?.username || data.user.email!.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
         email: data.user.email!,
       });
-      navigate('/');
+      navigate(returnTo);
     }
   };
 
@@ -203,7 +205,7 @@ const Login = () => {
         name: data.user.user_metadata?.full_name || data.user.user_metadata?.username || data.user.email!.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
         email: data.user.email!,
       });
-      navigate('/');
+      navigate(returnTo);
     }
   };
 

@@ -15,7 +15,6 @@ const WishlistCard = ({ product }: { product: Product }) => {
 
   return (
     <div className="glass rounded-xl overflow-hidden group animate-slide-in flex flex-col sm:flex-row">
-      {/* Image */}
       <Link to={`/product/${product.id}`} className="relative shrink-0">
         <div className="w-full sm:w-40 h-40 overflow-hidden bg-muted/30">
           <img
@@ -36,7 +35,6 @@ const WishlistCard = ({ product }: { product: Product }) => {
         </div>
       </Link>
 
-      {/* Content */}
       <div className="flex-1 p-4 flex flex-col justify-between">
         <div>
           <p className="text-xs text-primary font-medium mb-1">{product.category}</p>
@@ -49,7 +47,9 @@ const WishlistCard = ({ product }: { product: Product }) => {
           <div className="flex items-end gap-2">
             <span className="text-xl font-bold text-primary">{formatPrice(product.price)}</span>
             {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through mb-0.5">{formatPrice(product.originalPrice)}</span>
+              <span className="text-sm text-muted-foreground line-through mb-0.5">
+                {formatPrice(product.originalPrice)}
+              </span>
             )}
             {discount > 0 && (
               <span className="text-xs text-green-400 font-semibold mb-0.5">-{discount}%</span>
@@ -90,20 +90,28 @@ const Wishlist = () => {
             <Heart className="w-6 h-6 text-red-400" fill="currentColor" />
             My Wishlist
           </h1>
-          <span className="text-sm text-muted-foreground">{wishlist.length} {wishlist.length === 1 ? 'item' : 'items'}</span>
+          <span className="text-sm text-muted-foreground">
+            {wishlist.length} {wishlist.length === 1 ? 'item' : 'items'}
+          </span>
         </div>
 
         {wishlist.length > 0 ? (
           <>
-            {/* Bulk Add to Cart */}
             {wishlist.length > 1 && (
               <div className="glass gradient-border rounded-xl p-4 mb-6 flex items-center justify-between">
                 <div>
                   <p className="font-semibold text-sm">Add all to cart</p>
-                  <p className="text-xs text-muted-foreground">{wishlist.length} items · {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(wishlist.reduce((s, p) => s + p.price, 0))}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {wishlist.length} items ·{" "}
+                    {new Intl.NumberFormat('en-IN', {
+                      style: 'currency',
+                      currency: 'INR',
+                      maximumFractionDigits: 0,
+                    }).format(wishlist.reduce((s, p) => s + p.price, 0))}
+                  </p>
                 </div>
                 <button
-                  onClick={() => wishlist.forEach(p => addToCart(p))}
+                  onClick={() => wishlist.forEach((p) => addToCart(p))}
                   className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 glow-cyan transition-all"
                 >
                   Add All to Cart
@@ -112,7 +120,7 @@ const Wishlist = () => {
             )}
 
             <div className="space-y-4">
-              {wishlist.map(product => (
+              {wishlist.map((product) => (
                 <WishlistCard key={product.id} product={product} />
               ))}
             </div>

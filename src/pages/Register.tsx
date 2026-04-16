@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, KeyboardEvent, ClipboardEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff, Zap, Mail, Lock, User, AlertCircle, CheckCircle2, ArrowLeft, RefreshCw } from 'lucide-react';
 import { useStore } from '@/stores/storeContext';
 import { supabase } from '@/lib/supabase';
@@ -159,6 +159,8 @@ const StepIndicator = ({ step }: { step: Step }) => {
 
 const Register = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get('returnTo') || '/';
   const { login } = useStore();
 
   const [step, setStep] = useState<Step>('info');
@@ -250,7 +252,7 @@ const Register = () => {
     if (data.user) {
       login({ id: data.user.id, name: name.trim(), email });
       toast.success('Account created! Welcome to NexShop.', { style: TOAST_STYLE });
-      navigate('/');
+      navigate(returnTo);
     }
   };
 
